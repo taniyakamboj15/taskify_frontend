@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import {
   deleteTask,
-  addTaskComment,
   addTaskDueDate,
   changeTaskPriority,
   changeTaskStatus,
@@ -82,18 +81,18 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
       toast.error(error.message);
     }
   };
-  const handleComment = () => {
-    try {
-      const data = addTaskComment({
-        taskId,
-        comment: commentText,
-        setRefetchFlag: () => setRefetchFlag((prev) => !prev),
-      });
-      setShowOptions(false);
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
+  // const handleComment = () => {
+  //   try {
+  //     const data = addTaskComment({
+  //       taskId,
+  //       comment: commentText,
+  //       setRefetchFlag: () => setRefetchFlag((prev) => !prev),
+  //     });
+  //     setShowOptions(false);
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //   }
+  // };
   const handleStart = () => {
     try {
       const data = changeTaskStatus({
