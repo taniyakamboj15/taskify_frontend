@@ -128,9 +128,6 @@ To avoid `404 errors` on page refreshes with React Router, the project includes 
 
 ---
 
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
