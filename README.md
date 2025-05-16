@@ -1,103 +1,110 @@
-# Taskify Frontend
+# 🌟 Taskify – Task & Project Manager
 
-**Live URL:** [taskify.taniyakamboj.me](https://taskify.taniyakamboj.me)
-**Backend Repository:** [GitHub - taskify\_backend](https://github.com/taniyakamboj15/taskify_backend)
+**🔗 Live Project:** [taskify.taniyakamboj.md](https://taskify.taniyakamboj.md)
+**🔧 Backend Repository:** [GitHub - taskify\_backend](https://github.com/taniyakamboj15/taskify_backend)
 
-## 📌 Overview
-
-**Taskify** is a sleek, feature-rich task and project management app built with the **MERN** stack. It helps users organize projects, create and manage tasks, set due dates, and collaborate in a minimal and efficient UI. This is the **frontend** repository built using **React**, **Tailwind CSS**, and **Redux**.
+Taskify is a sleek, modern task and project management tool crafted to help individuals and teams manage their productivity effortlessly.
 
 ---
 
-## 🚀 Features
+## 📸 Demo Preview
 
-* 🔐 **Authentication** (Signup/Login with OTP Verification using Firebase)
-* 📁 **Project Management** (Create, update, delete projects)
-* ✅ **Task Tracking** (CRUD tasks under projects)
-* 📆 **Due Date Picker** with clear/reset functionality
-* 🌗 **Theme Toggle** (Light & Dark mode)
-* 📊 **Dashboard with filters** (e.g., by project, date)
-* 🔄 **Real-Time UI Updates** using Redux store
+> ![image](https://github.com/user-attachments/assets/4adcee98-3db1-4486-bb9b-41c9481cd313)
+
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features
 
-### 🌐 Frontend
-
-* **React.js** – Functional components and hooks
-* **Vite** – Fast bundler and dev server
-* **Redux Toolkit** – State management
-* **Tailwind CSS** – Utility-first responsive styling
-* **Lucide Icons** – Modern SVG icon pack
-
-### 🔐 Authentication
-
-* **Firebase** – OTP-based authentication
-
-### 🌍 Backend
-
-* **Node.js + Express** – REST APIs
-* **MongoDB** – Database
-* **Deployed on** –  [Vercel](https://vercel.com)
+* 🔐 **Authentication** — Secure login and signup with OTP via Firebase.
+* 📁 **Project Management** — Easily create, update, and delete projects.
+* ✅ **Task Tracking** — Add, edit, complete, or delete tasks per project.
+* 📆 **Due Date Picker** — Set task deadlines using an intuitive calendar.
+* 🎯 **Filtering** — View tasks by date, project, and completion status.
+* 🌗 **Theme Toggle** — Switch between light and dark themes.
+* 🔔 **Notifications** — Get updates via Toast and SweetAlert.
+* 📤 **Export to PDF** — Save tasks as PDFs using jsPDF & FileSaver.
+* 📱 **Fully Responsive** — Works perfectly on all screen sizes.
 
 ---
 
-## 🧩 Folder Structure
+## 🚀 Tech Stack
+
+### 🖥️ Frontend
+
+* **React 19**
+* **Redux Toolkit**
+* **React Router DOM**
+* **Framer Motion**
+* **Tailwind CSS + DaisyUI**
+* **Lucide Icons, React Toastify, SweetAlert2**
+* **Vite**
+
+### 🗃️ Backend
+
+* **Node.js & Express**
+* **MongoDB**
+* **Firebase (Auth & OTP)**
+
+### 🧰 Utilities
+
+* **Axios**
+* **jsPDF & AutoTable**
+* **FileSaver**
+
+---
+
+## 📁 Folder Structure
 
 ```
-📦 taskify_frontend
-├─ .gitignore
-├─ index.html
-├─ package.json
-├─ vite.config.js
-├─ vercel.json
-├─ src
-│  ├─ app.jsx               // Entry point
-│  ├─ global.css            // Tailwind global styles
-│  ├─ assets/               // Images and media
-│  ├─ components/           // Reusable components (UI + Pages)
-│  ├─ config/firebase.js    // Firebase setup
-│  ├─ hooks/                // Custom React hooks
-│  ├─ layout/Layout.jsx     // App layout component
-│  ├─ redux/                // Redux slices and store
-│  └─ utils/                // Utility functions
+taskify_frontend/
+├── public/
+├── src/
+│   ├── assets/         # Images, icons, etc.
+│   ├── components/     # UI components
+│   ├── config/         # Firebase config
+│   ├── hooks/          # Custom hooks
+│   ├── layout/         # Layout and page wrappers
+│   ├── redux/          # Redux store and slices
+│   ├── utils/          # Constants and helpers
+│   ├── app.jsx         # App root
+│   └── global.css      # Tailwind and global styles
+├── .gitignore
+├── index.html
+├── package.json
+├── vite.config.js
+└── vercel.json
 ```
 
 ---
 
-## 📷 Screenshots
+## 🛠️ Installation & Setup
 
-> Add UI screenshots here showing the dashboard, task view, project view, and dark/light themes.
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/taniyakamboj15/taskify_frontend.git
 cd taskify_frontend
 ```
 
-### 2. Install dependencies
+2. **Install dependencies**
 
 ```bash
 npm install
 ```
 
-### 3. Set up environment (optional)
+3. **Firebase Configuration**
 
-If using Firebase, ensure you configure it properly in `src/config/firebase.js`.
+* Go to `src/config/firebase.js`
+* Add your Firebase project credentials
 
-### 4. Run the development server
+4. **Start development server**
 
 ```bash
 npm run dev
 ```
 
-### 5. Build for production
+5. **Build for production**
 
 ```bash
 npm run build
@@ -105,40 +112,48 @@ npm run build
 
 ---
 
-## ⚙️ Deployment
+## 🌐 Deployment Guide
 
-The project is deployed using **Vercel**.
+### ✅ Vercel Configuration
 
-To avoid `404 errors` on page refreshes with React Router, the project includes a `vercel.json`:
+Ensure smooth routing:
 
 ```json
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
 ```
 
+### ⚙️ Vite Config
+
+```javascript
+export default defineConfig({
+  plugins: [react()],
+  base: './',
+});
+```
+
 ---
 
-## 🙋‍♀️ Author
+## 🧑‍💻 Author
 
 **Taniya Kamboj**
-[GitHub Profile](https://github.com/taniyakamboj15)
+GitHub: [@taniyakamboj15](https://github.com/taniyakamboj15)
 
 ---
 
+## 📄 License
 
----
-
-## 🌟 Show Your Support
-
-If you like this project, consider giving it a ⭐️ on GitHub and sharing it!
+**ISC License** – Feel free to use and adapt with credit.
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome! Fork the repo and suggest improvements.
 
-Happy Coding 💻✨
+---
+
+> Crafted with ❤️ using React, Firebase, Tailwind, and Vite
