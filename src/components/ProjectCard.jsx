@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar, Flag, Trash2, CheckCircle, Pickaxe } from "lucide-react";
+import { Flag, Trash2, CheckCircle, Pickaxe } from "lucide-react";
 import TaskBar from "./TaskBar";
 import { toast } from "react-toastify";
 import {
@@ -13,6 +13,7 @@ import {
 } from "../utils/addProject";
 import { addProjectTaskTitle } from "../utils/addTask";
 const priorities = ["low", "normal", "high", "urgent"];
+import DateInput from "./DateInput";
 
 const ProjectCard = ({
   projectId,
@@ -209,36 +210,21 @@ const ProjectCard = ({
       </div>
 
       <div className='flex flex-wrap gap-6 text-sm text-gray-700 dark:text-gray-300 mb-4'>
-        <div className='flex items-center gap-2'>
-          <Calendar className='w-4 h-4' />
-          Start:
-          <input
-            type='date'
-            value={startDate}
-            onChange={(e) => handleDateChange("startDate", e.target.value)}
-            className='bg-transparent border-b focus:outline-none dark:bg-gray-900'
-          />
-        </div>
-        <div className='flex items-center gap-2'>
-          <Calendar className='w-4 h-4' />
-          End:
-          <input
-            type='date'
-            value={endDate}
-            onChange={(e) => handleDateChange("endDate", e.target.value)}
-            className='bg-transparent border-b focus:outline-none dark:bg-gray-900'
-          />
-        </div>
-        <div className='flex items-center gap-2 dark:text-indigo-400 text-indigo-600'>
-          <Calendar className='w-4 h-4' />
-          Due:
-          <input
-            type='date'
-            value={dueDate}
-            onChange={(e) => handleDateChange("dueDate", e.target.value)}
-            className='bg-transparent border-b focus:outline-none dark:bg-gray-900 dark:text-indig-400 text-indigo-600'
-          />
-        </div>
+        <DateInput
+          label='Start'
+          date={startDate}
+          onChange={(val) => handleDateChange("startDate", val)}
+        />
+        <DateInput
+          label='End'
+          date={endDate}
+          onChange={(val) => handleDateChange("endDate", val)}
+        />
+        <DateInput
+          label='Due'
+          date={dueDate}
+          onChange={(val) => handleDateChange("dueDate", val)}
+        />
       </div>
 
       {tasks.length > 0 ? (
