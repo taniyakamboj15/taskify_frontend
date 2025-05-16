@@ -34,7 +34,7 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
 
   const { taskloading } = useGetAllTask(refetchFlag);
 
-  const [commentText, setCommentText] = useState(comment);
+  // const [commentText, setCommentText] = useState(comment);
 
   const handleIconClick = () => {
     if (dateInputRef.current) {
