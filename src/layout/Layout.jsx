@@ -7,7 +7,7 @@ import appStore from "../redux/appStore";
 import { ToastContainer } from "react-toastify";
 
 const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile/tablet on mount and resize
