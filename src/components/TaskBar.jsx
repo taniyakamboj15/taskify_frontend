@@ -4,7 +4,6 @@ import {
   MoreVertical,
   Flag,
   Trash2,
-  MessageCircle,
   Calendar,
   Pickaxe,
 } from "lucide-react";
@@ -17,22 +16,26 @@ import {
 
 const priorities = ["Low", "Normal", "High", "Urgent"];
 import { useRef } from "react";
-import useGetAllTask from "../hooks/useGetAllTask";
+
 import { toast } from "react-toastify";
 
-const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
+const TaskBar = ({
+  title,
+  priority,
+  dueDate,
+  status,
+  comment,
+  taskId,
+  setRefetchFlag,
+}) => {
   const dateInputRef = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [selectedPriority, setSelectedPriority] = useState(
     priority || "Normal"
   );
-  console.log("due", dueDate);
   const [selectedDate, setSelectedDate] = useState(dueDate || "");
   const [isDone, setIsDone] = useState(status === "completed");
-  const [refetchFlag, setRefetchFlag] = useState(false);
-
-  const { taskloading } = useGetAllTask(refetchFlag);
 
   // const [commentText, setCommentText] = useState(comment);
 
@@ -119,8 +122,13 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
   };
 
   return (
-    <div className='bg-white dark:bg-black text-black dark:text-white p-4 rounded-xl flex flex-wrap md:flex-nowrap items-start md:items-center justify-between shadow-md relative gap-3 md:gap-6 w-full'>
-      {/* Done Circle */}
+    <div
+      className={` ${
+        status === "completed"
+          ? "border-2  border-green-400"
+          : "border-0 border-gray-300"
+      } bg-white dark:bg-black text-black dark:text-white p-4 rounded-xl flex flex-wrap md:flex-nowrap items-start md:items-center justify-between shadow-md relative gap-3 md:gap-6 w-full`}
+    >
       <div
         onClick={handleDone}
         className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer ${
@@ -132,7 +140,6 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
         {isDone && <CheckCircle className='w-4 h-4 text-white' />}
       </div>
 
-      {/* Task Info */}
       <div className='flex-1 min-w-[200px]'>
         <span className='block text-sm font-medium break-words'>{title}</span>
         {comment && (
@@ -142,14 +149,13 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
         )}
       </div>
 
-      {/* Status Message */}
       {status === "pending" && (
         <div className='absolute -top-2 left-12 text-xs text-yellow-600 dark:text-yellow-400'>
           pending
         </div>
       )}
       {status === "completed" && (
-        <div className='absolute -top-5 left-12 text-xs text-green-600 dark:text-green-400'>
+        <div className='absolute -top-1 left-12 text-sm font-semibold text-green-600 dark:text-green-400'>
           Completed
         </div>
       )}
@@ -159,7 +165,6 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
         </div>
       )}
 
-      {/* Priority Dropdown */}
       <div className='relative'>
         <div
           className={`text-sm cursor-pointer flex items-center gap-1 ${
@@ -191,7 +196,6 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
           </div>
         )}
       </div>
-      {/* Change to Started */}
       {status === "pending" && (
         <div className='flex items-center gap-2'>
           <button
@@ -204,12 +208,11 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
         </div>
       )}
 
-      {/* Due Date Picker */}
       {dueDate ? (
         <div className='text-sm text-green-600 flex items-center gap-1'>
           <Calendar className='w-4 h-4' />
           {new Date(dueDate).toLocaleDateString("en-US", {
-            month: "short", // or "long" for full month name
+            month: "short",
             day: "numeric",
           })}
         </div>
@@ -222,7 +225,6 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
             <Calendar className='w-4 h-4' />
           </button>
 
-          {/* Invisible but functional date input */}
           <input
             ref={dateInputRef}
             type='date'

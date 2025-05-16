@@ -67,7 +67,7 @@ const Sidebar = ({ closeSidebar }) => {
   return (
     <div className='p-4 pl-8 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 flex flex-col gap-4'>
       {/* Top Actions */}
-      <div className='flex items-center space-x-4'>
+      {/* <div className='flex items-center space-x-4'>
         <div className='relative group flex flex-col items-center'>
           <Search
             size={28}
@@ -87,7 +87,7 @@ const Sidebar = ({ closeSidebar }) => {
             Add Task
           </span>
         </div>
-      </div>
+      </div> */}
 
       {/* Task Links */}
       <div>
@@ -102,7 +102,7 @@ const Sidebar = ({ closeSidebar }) => {
             <Layers size={16} />
             <span>All Tasks</span>
           </li>
-          <li
+          {/* <li
             onClick={() => handleIconClick("today")}
             className={`flex items-center gap-2 cursor-pointer hover:text-indigo-500 hover:bg-gray-300 p-1.5 rounded-md ${isActive(
               "today"
@@ -110,7 +110,7 @@ const Sidebar = ({ closeSidebar }) => {
           >
             <CalendarClock size={16} />
             <span>Today's Task</span>
-          </li>
+          </li> */}
         </ul>
       </div>
 
@@ -126,7 +126,7 @@ const Sidebar = ({ closeSidebar }) => {
             <FolderGit2 size={16} />
             <span>All Projects</span>
           </li>
-          <li
+          {/* <li
             onClick={() => handleIconClick("upcoming")}
             className={`flex items-center gap-2 cursor-pointer hover:text-indigo-500 hover:bg-gray-300 p-1.5 rounded-md ${isActive(
               "upcoming"
@@ -134,7 +134,7 @@ const Sidebar = ({ closeSidebar }) => {
           >
             <CalendarArrowUp size={16} />
             <span>Upcoming Projects</span>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div

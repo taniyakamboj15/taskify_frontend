@@ -6,17 +6,27 @@ import useGetAllTask from "../hooks/useGetAllTask";
 import { toast } from "react-toastify";
 import { addTaskTitle } from "../utils/addTask";
 import TaskBar from "./TaskBar";
+import { saveAs } from "file-saver";
+import jsPDF from "jspdf";
+import "jspdf-autotable"; // for table support
+
 const AllTask = () => {
   const navigate = useNavigate();
   const { user, loading } = useUserAuth();
   const [title, setTitle] = useState("");
   const [refetchFlag, setRefetchFlag] = useState(false);
+  const { tasks: allTasks, taskLoading } = useGetAllTask(refetchFlag);
 
-  const { tasks, taskLoading } = useGetAllTask(refetchFlag);
-  console.log("Tasks:", tasks);
+  const [filteredTasks, setFilteredTasks] = useState(allTasks);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const tasks = isFiltered ? filteredTasks : allTasks;
+
+  useEffect(() => {
+    setFilteredTasks(allTasks);
+  }, [allTasks]);
+
   useEffect(() => {
     if (!loading && !user) {
-      console.log("User not found");
       navigate("/");
     }
   }, [user, loading, navigate]);
@@ -37,6 +47,47 @@ const AllTask = () => {
     }
   };
 
+  const handleFilter = ({ priority, status }) => {
+    setIsFiltered(true);
+    const filtered = allTasks.filter((task) => {
+      const matchPriority =
+        priority === "all" ||
+        task.priority.toLowerCase() === priority.toLowerCase();
+      const matchStatus =
+        status === "all" || task.status.toLowerCase() === status.toLowerCase();
+      return matchPriority && matchStatus;
+    });
+    setFilteredTasks(filtered);
+  };
+
+  const handleExport = (format) => {
+    if (format === "json") {
+      const blob = new Blob([JSON.stringify(filteredTasks, null, 2)], {
+        type: "application/json",
+      });
+      saveAs(blob, "tasks_export.json");
+    } else if (format === "pdf") {
+      const doc = new jsPDF();
+      doc.text("Task List", 14, 16);
+      const tableData = filteredTasks.map((task, index) => [
+        index + 1,
+        task.title,
+        task.status,
+        task.priority,
+        task.createdAt ? new Date(task.createdAt).toLocaleDateString() : "-",
+        task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "-",
+      ]);
+      doc.autoTable({
+        head: [
+          ["No.", "Title", "Status", "Priority", "Created On", "Due Date"],
+        ],
+        body: tableData,
+        startY: 20,
+      });
+      doc.save("tasks_export.pdf");
+    }
+  };
+
   if (taskLoading) {
     return (
       <div className='flex justify-center items-center h-screen'>
@@ -47,16 +98,29 @@ const AllTask = () => {
 
   return (
     <div>
-      <SubHeader text='All Task' />
+      <SubHeader
+        text='All Tasks'
+        onFilter={handleFilter}
+        onExport={handleExport}
+      />
+
       <div className='flex flex-col gap-4 p-4'>
+        {isFiltered && tasks.length > 0 && (
+          <p className='text-sm text-indigo-500 font-medium px-1 mb-2'>
+            Showing filtered tasks
+          </p>
+        )}
+
         <div className='bg-white dark:bg-gray-800 shadow-md rounded-lg p-4'>
           <h2 className='text-lg font-semibold text-gray-800 dark:text-gray-200'>
             Task List
           </h2>
+
           {tasks.length === 0 ? (
             <p className='text-gray-500 dark:text-gray-400'>
-              No tasks added yet – let’s get started! Add your first task and
-              take a step toward productivity!
+              {isFiltered
+                ? "No tasks match the current filter."
+                : "No tasks added yet – let’s get started!"}
             </p>
           ) : (
             <ul className='pl-1 md:pl-5'>
@@ -72,26 +136,24 @@ const AllTask = () => {
                     priority={task.priority}
                     taskId={task._id}
                     dueDate={task.dueDate}
+                    setRefetchFlag={setRefetchFlag}
                   />
                 </li>
               ))}
             </ul>
           )}
+
           <div className='mt-6'>
             <div className='flex items-center'>
               <input
                 type='text'
                 placeholder='Add your task...'
                 value={title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
+                onChange={(e) => setTitle(e.target.value)}
                 className='flex-grow border border-gray-300 dark:border-gray-600 rounded-l-md p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500'
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    // Handle adding task
                     handleAddTask(title);
-                    console.log("Task added:", e.target.value);
                     e.target.value = "";
                   }
                 }}

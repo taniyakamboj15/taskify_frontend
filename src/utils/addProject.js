@@ -20,7 +20,16 @@ const sendProjectRequest = async ({
     if (!res.ok) throw new Error(data.msg || "Something went wrong");
 
     setRefetchFlag?.((prev) => !prev);
-    if (successMessage) toast.success(successMessage);
+    if (successMessage)
+      toast.success(successMessage, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
     return data;
   } catch (error) {
     toast.error(error.message || "Something went wrong");
@@ -88,7 +97,6 @@ export const AddProjectDueDate = async ({
 }) => {
   if (!projectId || !dueDate)
     throw new Error("Project ID and due date are required");
-  console.log("duedate", dueDate);
   return await sendProjectRequest({
     url: "update/Project",
     payload: { projectId, dueDate },

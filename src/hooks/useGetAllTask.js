@@ -21,7 +21,6 @@ const useGetAllTask = (refetchFlag) => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log("Fetched tasks:", data);
       dispatch(addTasks(data.data));
     } catch (error) {
       console.error("Error fetching tasks:", error);

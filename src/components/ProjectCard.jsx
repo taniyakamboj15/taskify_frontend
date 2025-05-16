@@ -89,7 +89,6 @@ const ProjectCard = ({
       console.log("duedate called");
       AddProjectDueDate({ dueDate: value, projectId, setRefetchFlag });
     }
-    // You can enable backend update here
   };
 
   const handleDelete = () => {
@@ -98,16 +97,13 @@ const ProjectCard = ({
 
   return (
     <div className='bg-white dark:bg-gray-900 text-black dark:text-white p-6 rounded-2xl shadow-xl mb-6 w-full'>
-      {/* HEADER */}
       <div className='flex justify-between items-start flex-wrap gap-3 mb-4'>
-        {/* Title and Description */}
         <div className='max-w-full break-words overflow-hidden'>
           <h2 className='text-xl font-semibold break-words'>{title}</h2>
           <p className='text-sm text-gray-600 dark:text-gray-400 break-words'>
             {description}
           </p>
 
-          {/* Comment Section */}
           {editingComment ? (
             <div className='flex items-center gap-2 mt-2'>
               <input
@@ -143,9 +139,7 @@ const ProjectCard = ({
           )}
         </div>
 
-        {/* ACTION BUTTONS */}
         <div className='flex flex-col gap-2 items-end text-sm'>
-          {/* Status */}
           {status !== "completed" && (
             <button
               onClick={handleStatusChange}
@@ -174,7 +168,6 @@ const ProjectCard = ({
             {status}
           </span>
 
-          {/* Priority Dropdown */}
           <div className='relative cursor-pointer'>
             <div
               onClick={() => setShowPriorityDropdown((prev) => !prev)}
@@ -206,7 +199,6 @@ const ProjectCard = ({
             )}
           </div>
 
-          {/* Delete Button */}
           <button
             onClick={handleDelete}
             className='text-red-500 flex items-center text-xs hover:underline'
@@ -216,7 +208,6 @@ const ProjectCard = ({
         </div>
       </div>
 
-      {/* DATE SECTION */}
       <div className='flex flex-wrap gap-6 text-sm text-gray-700 dark:text-gray-300 mb-4'>
         <div className='flex items-center gap-2'>
           <Calendar className='w-4 h-4' />
@@ -238,19 +229,18 @@ const ProjectCard = ({
             className='bg-transparent border-b focus:outline-none dark:bg-gray-900'
           />
         </div>
-        <div className='flex items-center gap-2 text-green-600'>
+        <div className='flex items-center gap-2 dark:text-indigo-400 text-indigo-600'>
           <Calendar className='w-4 h-4' />
           Due:
           <input
             type='date'
             value={dueDate}
             onChange={(e) => handleDateChange("dueDate", e.target.value)}
-            className='bg-transparent border-b focus:outline-none dark:bg-gray-900 text-green-700'
+            className='bg-transparent border-b focus:outline-none dark:bg-gray-900 dark:text-indig-400 text-indigo-600'
           />
         </div>
       </div>
 
-      {/* TASK SECTION */}
       {tasks.length > 0 ? (
         <div className='space-y-4'>
           {tasks.map((task) => (
@@ -262,6 +252,7 @@ const ProjectCard = ({
               priority={task.priority}
               taskId={task._id}
               dueDate={task.dueDate}
+              setRefetchFlag={setRefetchFlag}
             />
           ))}
         </div>
