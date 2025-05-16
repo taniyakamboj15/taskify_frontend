@@ -69,7 +69,7 @@ const Layout = () => {
           {/* Main Content (Adjusts Margin on Desktop) */}
           <main
             className={`flex-1 p-0.5 overflow-y-auto transition-all duration-300 ease-in-out ${
-              !isMobile && isSidebarOpen ? "lg:ml-64" : ""
+              !isMobile && isSidebarOpen ? "" : ""
             }`}
           >
             <Outlet />
