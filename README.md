@@ -39,7 +39,7 @@
 
 * **Node.js + Express** – REST APIs
 * **MongoDB** – Database
-* **Deployed on** – [Render](https://render.com) / [Vercel](https://vercel.com)
+* **Deployed on** –  [Vercel](https://vercel.com)
 
 ---
 
