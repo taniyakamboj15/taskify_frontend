@@ -249,12 +249,12 @@ const TaskBar = ({ title, priority, dueDate, status, comment, taskId }) => {
             >
               <Trash2 className='w-4 h-4' /> Delete
             </button>
-            <button
+            {/* <button
               className='w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 text-sm flex items-center gap-2'
               onClick={handleComment}
             >
               <MessageCircle className='w-4 h-4' /> Comment
-            </button>
+            </button> */}
           </div>
         )}
       </div>
