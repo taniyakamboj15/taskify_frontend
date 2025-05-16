@@ -25,6 +25,7 @@ const Login = ({ onClose }) => {
   const [country, setCountry] = useState("");
   const [otp, setOtp] = useState("");
   const [googleLoginError, setGoogleLoginError] = useState(null);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const emailRef = useRef(null);
 
@@ -83,6 +84,7 @@ const Login = ({ onClose }) => {
 
   const handleGoogleLogin = async () => {
     try {
+      setGoogleLoading(true);
       const firebaseToken = await signInWithGoogle();
       const res = await axios.post(
         `${BASE_URL}auth/firebaseLogin`,
@@ -92,6 +94,7 @@ const Login = ({ onClose }) => {
       if (res.status === 200 || res.status === 201) {
         const { name, email, country } = res.data.data;
         dispatch(setUser({ name, email, country }));
+        toast.success("Login successful!");
         onClose();
         navigate("/allTask");
       } else {
@@ -100,7 +103,10 @@ const Login = ({ onClose }) => {
       }
     } catch (err) {
       setGoogleLoginError(err?.response?.data?.msg || "Something went wrong");
+      toast.error(err?.response?.data?.msg || "Something went wrong");
       setTimeout(() => setGoogleLoginError(null), 2000);
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -230,13 +236,20 @@ const Login = ({ onClose }) => {
             type='button'
             onClick={handleGoogleLogin}
             className='btn btn-outline w-full mt-4 flex items-center gap-2 justify-center'
+            disabled={googleLoading}
           >
-            <img
-              src='https://cdn-icons-png.flaticon.com/512/2875/2875331.png'
-              alt='Google'
-              className='w-5 h-5'
-            />
-            Continue with Google
+            {googleLoading ? (
+              <span className='loading loading-spinner loading-sm'></span>
+            ) : (
+              <>
+                <img
+                  src='https://cdn-icons-png.flaticon.com/512/2875/2875331.png'
+                  alt='Google'
+                  className='w-5 h-5'
+                />
+                Continue with Google
+              </>
+            )}
           </button>
 
           <p className='text-sm mt-4 text-center'>
