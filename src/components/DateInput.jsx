@@ -6,6 +6,16 @@ const DateInput = ({ label, date, onChange }) => {
 
   const formatDate = (d) => (d ? new Date(d).toISOString().split("T")[0] : "");
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (value === "") {
+      onChange("");
+    } else {
+      onChange(value);
+    }
+    setShowInput(false);
+  };
+
   return (
     <div className='flex items-center gap-2'>
       <Calendar
@@ -25,18 +35,14 @@ const DateInput = ({ label, date, onChange }) => {
         <input
           type='date'
           value={formatDate(date)}
-          onChange={(e) => {
-            onChange(e.target.value);
-            setShowInput(false);
-          }}
+          onChange={handleInputChange}
           onBlur={() => setShowInput(false)}
           className='bg-transparent border-b focus:outline-none dark:bg-gray-900'
           autoFocus
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </div>
   );
 };
+
 export default DateInput;

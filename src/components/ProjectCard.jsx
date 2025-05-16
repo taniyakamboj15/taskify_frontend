@@ -72,7 +72,6 @@ const ProjectCard = ({
   };
 
   const handleDateChange = (type, value) => {
-    console.log("handle datye change called");
     if (type === "startDate") {
       setStartDate(value);
       UpdateProjectStartDate({
