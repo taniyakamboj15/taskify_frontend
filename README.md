@@ -1,6 +1,6 @@
 # 🌟 Taskify – Task & Project Manager
 
-**🔗 Live Project:** [taskify.taniyakamboj.md](https://taskify.taniyakamboj.md)
+**🔗 Live Project:** [taskify](https://taskify.taniyakamboj.info)
 **🔧 Backend Repository:** [GitHub - taskify\_backend](https://github.com/taniyakamboj15/taskify_backend)
 
 Taskify is a sleek, modern task and project management tool crafted to help individuals and teams manage their productivity effortlessly.
